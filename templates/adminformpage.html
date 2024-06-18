@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Admin Page</title>
+    <style>
+        .box {
+            border: 1px solid #ccc;
+            padding: 10px;
+            margin: 10px;
+            display: inline-block;
+            width: 200px;
+        }
+    </style>
+</head>
+<body>
+    <div id="content"></div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            fetch('/admin/getdata')
+                .then(response => response.json())
+                .then(data => {
+                    const contentDiv = document.getElementById('content');
+                    data.forEach(item => {
+                        const box = document.createElement('div');
+                        box.className = 'box';
+                        box.innerHTML = `
+                            <h3>Subject: ${item.Subject}</h3>
+                            <p>Email: ${item.Email}</p>
+                            <p>Body: ${item.Body}</p>
+                        `;
+                        contentDiv.appendChild(box);
+                    });
+                })
+        })
+
+
+    </script>
+</body>
+</html>
